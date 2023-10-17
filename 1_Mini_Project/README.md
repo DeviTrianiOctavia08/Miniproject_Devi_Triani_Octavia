@@ -1,1 +1,1 @@
-mini projek Devi Triani Octavia
+Mini Project Devi Triani Octavia
