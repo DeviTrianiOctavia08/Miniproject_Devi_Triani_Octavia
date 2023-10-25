@@ -21,7 +21,7 @@ class _NiatSholatState extends State<NiatSholat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffb4ddd9), // Warna latar belakang
+      backgroundColor: Colors.blue, // Warna latar belakang
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +32,7 @@ class _NiatSholatState extends State<NiatSholat> {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(Icons.arrow_back, color: Colors.black),
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
                   ),
                 ),
                 Align(
@@ -95,6 +95,7 @@ class _NiatSholatState extends State<NiatSholat> {
                     } else if (data.hasData) {
                       var items = data.data as List<ModelNiat>;
                       return ListView.builder(
+                          // ignore: unnecessary_null_comparison
                           itemCount: items == null ? 0 : items.length,
                           itemBuilder: (context, index) {
                             return Card(
@@ -105,7 +106,7 @@ class _NiatSholatState extends State<NiatSholat> {
                               child: Theme(
                                 data: Theme.of(context)
                                     .copyWith(dividerColor: Colors.transparent),
-                                child: ExpansionTile(
+                                child: ExpansionTile( // untuk membuat daftar yang dapat diperluas saat pengguna mengkliknya
                                   title: Text(
                                     items[index].name.toString(),
                                     style: TextStyle(

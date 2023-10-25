@@ -21,7 +21,7 @@ class _BacaanSholatState extends State<BacaanSholat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0e1446), // Warna latar belakang
+      backgroundColor: Colors.blue, // Warna latar belakang
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +41,7 @@ class _BacaanSholatState extends State<BacaanSholat> {
                     margin: EdgeInsets.only(top: 80),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0xff44aca0)), // Warna latar judul
+                        color: Color(0xff0e1446)), // Warna latar judul
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
@@ -97,6 +97,7 @@ class _BacaanSholatState extends State<BacaanSholat> {
                     } else if (data.hasData) {
                       var items = data.data as List<ModelBacaan>;
                       return ListView.builder(
+                          // ignore: unnecessary_null_comparison
                           itemCount: items == null ? 0 : items.length,
                           itemBuilder: (context, index) {
                             return Card(
@@ -107,7 +108,7 @@ class _BacaanSholatState extends State<BacaanSholat> {
                               child: Theme(
                                 data: Theme.of(context)
                                     .copyWith(dividerColor: Colors.transparent),
-                                child: ExpansionTile(
+                                child: ExpansionTile( // untuk membuat daftar yang dapat diperluas saat pengguna mengkliknya
                                   title: Text(
                                     items[index].name.toString(),
                                     style: TextStyle(

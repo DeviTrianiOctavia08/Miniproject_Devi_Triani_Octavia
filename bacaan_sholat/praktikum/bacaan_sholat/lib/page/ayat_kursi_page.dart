@@ -11,7 +11,7 @@ class _AyatKursiState extends State<AyatKursi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff44aca0), // Warna latar belakang
+      backgroundColor: Colors.blue, // Warna latar belakang
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +31,7 @@ class _AyatKursiState extends State<AyatKursi> {
                     margin: EdgeInsets.only(top: 80),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0xffb4ddd9)), // Warna latar judul
+                        color: Color(0xff0e1446)), // Warna latar judul
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
@@ -86,7 +86,7 @@ class _AyatKursiState extends State<AyatKursi> {
                         height: 50,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Color(0xff0e1446)), // Warna tombol Tafsir
+                            color: Color(0xff0e1446),), // Warna tombol Tafsir
                         child: Material(
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.transparent,

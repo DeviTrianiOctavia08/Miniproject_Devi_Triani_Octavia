@@ -21,7 +21,7 @@
 import 'package:flutter/material.dart';
 import 'package:bacaan_sholat/page/register_page.dart';
 import 'package:bacaan_sholat/login_page.dart';
-import 'package:bacaan_sholat/page/main_page.dart'; // Import MainPage
+import 'package:bacaan_sholat/page/main_page.dart';
 
 void main() {
   runApp(MyApp());
