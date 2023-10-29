@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bacaan_sholat/page/ayat_kursi_page.dart';
-import 'package:bacaan_sholat/page/bacaan_sholat_page.dart';
-import 'package:bacaan_sholat/page/niat_sholat_page.dart';
+
+import '../helper/firebase_helper.dart';
+import 'ayat_kursi_page.dart';
+import 'bacaan_sholat_page.dart';
+import 'login_page.dart';
+import 'niat_sholat_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,11 +20,11 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.blue, // Warna latar belakang
       appBar: AppBar(
-        title: Text('Aplikasi Bacaan Sholat'),
+        title: const Text('Aplikasi Bacaan Sholat'),
         backgroundColor: Colors.blue, // Warna AppBar
       ),
       drawer: MyDrawer(),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -37,6 +41,10 @@ class _MainPageState extends State<MainPage> {
 }
 
 class MyDrawer extends StatelessWidget {
+  MyDrawer({super.key});
+  final FirebaseAuthentication _firebaseAuthentication =
+      FirebaseAuthentication();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -62,38 +70,53 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               "Niat Sholat",
               style: TextStyle(fontSize: 18, color: Colors.blue), // Warna teks
             ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NiatSholat()),
+                MaterialPageRoute(builder: (context) => const NiatSholat()),
               );
             },
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               "Bacaan Sholat",
               style: TextStyle(fontSize: 18, color: Colors.blue), // Warna teks
             ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => BacaanSholat()),
+                MaterialPageRoute(builder: (context) => const BacaanSholat()),
               );
             },
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               "Ayat Kursi",
               style: TextStyle(fontSize: 18, color: Colors.blue), // Warna teks
             ),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AyatKursi()),
+                MaterialPageRoute(builder: (context) => const AyatKursi()),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text(
+              "Logout",
+              style: TextStyle(fontSize: 18, color: Colors.blue), // Warna teks
+            ),
+            onTap: () {
+              // kode logout
+              FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+                (route) => false,
               );
             },
           ),

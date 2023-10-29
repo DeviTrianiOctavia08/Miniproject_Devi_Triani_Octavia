@@ -1,21 +1,21 @@
 import 'dart:convert';
-import 'package:bacaan_sholat/model/model_niat.dart';
+import 'package:bacaan_sholat/models/model_bacaan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 
-class NiatSholat extends StatefulWidget {
-  const NiatSholat({Key? key}) : super(key: key);
+class BacaanSholat extends StatefulWidget {
+  const BacaanSholat({Key? key}) : super(key: key);
 
   @override
-  _NiatSholatState createState() => _NiatSholatState();
+  _BacaanSholatState createState() => _BacaanSholatState();
 }
 
-class _NiatSholatState extends State<NiatSholat> {
-  Future<List<ModelNiat>> ReadJsonData() async {
+class _BacaanSholatState extends State<BacaanSholat> {
+  Future<List<ModelBacaan>> ReadJsonData() async {
     final jsondata =
-        await rootBundle.rootBundle.loadString('assets/data/niatshalat.json');
+        await rootBundle.rootBundle.loadString('assets/data/bacaanshalat.json');
     final list = json.decode(jsondata) as List<dynamic>;
-    return list.map((e) => ModelNiat.fromJson(e)).toList();
+    return list.map((e) => ModelBacaan.fromJson(e)).toList();
   }
 
   @override
@@ -41,7 +41,7 @@ class _NiatSholatState extends State<NiatSholat> {
                     margin: EdgeInsets.only(top: 80),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0xff0e1446)),
+                        color: Color(0xff0e1446)), // Warna latar judul
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
@@ -51,17 +51,17 @@ class _NiatSholatState extends State<NiatSholat> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Niat Sholat Wajib",
+                              "Bacaan Sholat",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 24,
+                                  fontSize: 24, // Ukuran judul
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Bacaan niat sholat wajib 5 waktu",
+                              "Bacaan sholat dari doa Iftitah sampai Salam",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 16, // Ukuran deskripsi
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -77,8 +77,10 @@ class _NiatSholatState extends State<NiatSholat> {
                       bottomRight: Radius.circular(30),
                     ),
                     child: Image.asset(
-                      "assets/images/sholat.jpg",
+                      "assets/images/doa.jpg",
                       width: 330,
+                      height: 200,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
@@ -93,7 +95,7 @@ class _NiatSholatState extends State<NiatSholat> {
                     if (data.hasError) {
                       return Center(child: Text("${data.error}"));
                     } else if (data.hasData) {
-                      var items = data.data as List<ModelNiat>;
+                      var items = data.data as List<ModelBacaan>;
                       return ListView.builder(
                           // ignore: unnecessary_null_comparison
                           itemCount: items == null ? 0 : items.length,
@@ -110,7 +112,7 @@ class _NiatSholatState extends State<NiatSholat> {
                                   title: Text(
                                     items[index].name.toString(),
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 20, // Ukuran judul bacaan
                                         fontWeight: FontWeight.bold),
                                   ),
                                   children: [
@@ -139,7 +141,7 @@ class _NiatSholatState extends State<NiatSholat> {
                                                         .arabic
                                                         .toString(),
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 16, // Ukuran teks Arabic
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -152,7 +154,7 @@ class _NiatSholatState extends State<NiatSholat> {
                                                         .latin
                                                         .toString(),
                                                     style: TextStyle(
-                                                        fontSize: 18,
+                                                        fontSize: 14, // Ukuran teks Latin
                                                         fontStyle:
                                                             FontStyle.italic),
                                                   ),
@@ -167,7 +169,7 @@ class _NiatSholatState extends State<NiatSholat> {
                                                           .terjemahan
                                                           .toString(),
                                                       style: TextStyle(
-                                                        fontSize: 16,
+                                                        fontSize: 12, // Ukuran teks terjemahan
                                                       )),
                                                 )
                                               ],

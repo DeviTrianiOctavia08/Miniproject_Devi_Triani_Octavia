@@ -1,27 +1,28 @@
 import 'dart:convert';
-import 'package:bacaan_sholat/model/model_bacaan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as rootBundle;
 
-class BacaanSholat extends StatefulWidget {
-  const BacaanSholat({Key? key}) : super(key: key);
+import '../models/model_niat.dart';
+
+class NiatSholat extends StatefulWidget {
+  const NiatSholat({Key? key}) : super(key: key);
 
   @override
-  _BacaanSholatState createState() => _BacaanSholatState();
+  _NiatSholatState createState() => _NiatSholatState();
 }
 
-class _BacaanSholatState extends State<BacaanSholat> {
-  Future<List<ModelBacaan>> ReadJsonData() async {
+class _NiatSholatState extends State<NiatSholat> {
+  Future<List<ModelNiat>> ReadJsonData() async {
     final jsondata =
-        await rootBundle.rootBundle.loadString('assets/data/bacaanshalat.json');
+        await rootBundle.rootBundle.loadString('assets/data/niatshalat.json');
     final list = json.decode(jsondata) as List<dynamic>;
-    return list.map((e) => ModelBacaan.fromJson(e)).toList();
+    return list.map((e) => ModelNiat.fromJson(e)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue, // Warna latar belakang
+      backgroundColor: const Color(0xffb4ddd9), // Warna latar belakang
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,36 +33,36 @@ class _BacaanSholatState extends State<BacaanSholat> {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, color: Colors.black),
                   ),
                 ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Container(
-                    margin: EdgeInsets.only(top: 80),
+                    margin: const EdgeInsets.only(top: 80),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0xff0e1446)), // Warna latar judul
+                        color: const Color(0xff0e1446)),
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
-                        margin: EdgeInsets.only(top: 120, left: 20),
-                        child: Column(
+                        margin: const EdgeInsets.only(top: 120, left: 20),
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Bacaan Sholat",
+                              "Niat Sholat Wajib",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 24, // Ukuran judul
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Bacaan sholat dari doa Iftitah sampai Salam",
+                              "Bacaan niat sholat wajib 5 waktu",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16, // Ukuran deskripsi
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -71,22 +72,18 @@ class _BacaanSholatState extends State<BacaanSholat> {
                 Align(
                   alignment: Alignment.topRight,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30),
                     ),
-                    child: Image.asset(
-                      "assets/images/doa.jpg",
-                      width: 330,
-                      height: 200,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    child: Image.asset("assets/images/sholat.jpg",
+                        width: 330, height: 200, fit: BoxFit.fitWidth),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: Container(
                 child: FutureBuilder(
@@ -95,29 +92,28 @@ class _BacaanSholatState extends State<BacaanSholat> {
                     if (data.hasError) {
                       return Center(child: Text("${data.error}"));
                     } else if (data.hasData) {
-                      var items = data.data as List<ModelBacaan>;
+                      var items = data.data as List<ModelNiat>;
                       return ListView.builder(
-                          // ignore: unnecessary_null_comparison
                           itemCount: items == null ? 0 : items.length,
                           itemBuilder: (context, index) {
                             return Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               elevation: 5,
-                              margin: EdgeInsets.all(15),
+                              margin: const EdgeInsets.all(15),
                               child: Theme(
                                 data: Theme.of(context)
                                     .copyWith(dividerColor: Colors.transparent),
-                                child: ExpansionTile( // untuk membuat daftar yang dapat diperluas saat pengguna mengkliknya
+                                child: ExpansionTile(
                                   title: Text(
                                     items[index].name.toString(),
-                                    style: TextStyle(
-                                        fontSize: 20, // Ukuran judul bacaan
+                                    style: const TextStyle(
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(8),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -126,7 +122,8 @@ class _BacaanSholatState extends State<BacaanSholat> {
                                         children: [
                                           Expanded(
                                               child: Container(
-                                            padding: EdgeInsets.only(bottom: 8),
+                                            padding: const EdgeInsets.only(
+                                                bottom: 8),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -134,42 +131,45 @@ class _BacaanSholatState extends State<BacaanSholat> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 8, right: 8),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8, right: 8),
                                                   child: Text(
                                                     items[index]
                                                         .arabic
                                                         .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 16, // Ukuran teks Arabic
+                                                    style: const TextStyle(
+                                                        fontSize: 20,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 8, right: 8),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8, right: 8),
                                                   child: Text(
                                                     items[index]
                                                         .latin
                                                         .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 14, // Ukuran teks Latin
+                                                    style: const TextStyle(
+                                                        fontSize: 18,
                                                         fontStyle:
                                                             FontStyle.italic),
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 8,
-                                                      right: 8,
-                                                      top: 10),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 10),
                                                   child: Text(
                                                       items[index]
                                                           .terjemahan
                                                           .toString(),
-                                                      style: TextStyle(
-                                                        fontSize: 12, // Ukuran teks terjemahan
+                                                      style: const TextStyle(
+                                                        fontSize: 16,
                                                       )),
                                                 )
                                               ],
@@ -184,7 +184,7 @@ class _BacaanSholatState extends State<BacaanSholat> {
                             );
                           });
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
